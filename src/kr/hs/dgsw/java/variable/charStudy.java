@@ -1,4 +1,4 @@
-package kr.hs.dgsw.java;
+package kr.hs.dgsw.java.variable;
 
 public class charStudy {
     public static void main(String[] args) {
