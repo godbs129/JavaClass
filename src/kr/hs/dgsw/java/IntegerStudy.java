@@ -15,5 +15,20 @@ public class IntegerStudy {
                 Byte.MIN_VALUE + " ~ " + Byte.MAX_VALUE);
         System.out.println("Byte Range: " +
                 Short.MIN_VALUE + " ~ " + Short.MAX_VALUE);
+        System.out.println("Byte Range: " +
+                Long.MIN_VALUE + " ~ " + Long.MAX_VALUE);
+
+        byteValue = (byte)129;
+        System.out.println("bytevalue : " + byteValue);
+
+        intValue = 123456780;
+        longValue = 1234567890000L;
+
+        intValue = 0xFF;
+        byteValue = 0b00101111;
+        shortValue = 0232;
+        System.out.println(intValue);
+        System.out.println(byteValue);
+        System.out.println(shortValue);
     }
 }
