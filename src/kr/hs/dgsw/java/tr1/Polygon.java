@@ -1,9 +1,7 @@
 package kr.hs.dgsw.java.tr1;
 
-public class Polygon {
-    public double getArea() {
-        return 0;
-    }
+public abstract class Polygon {
+    public abstract double getArea();
 
     public String getName() {
         return "다각형";
