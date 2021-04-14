@@ -1,22 +1,29 @@
 package kr.hs.dgsw.java.array;
 
 public class Queue {
-    private String[] array = new String[5];
+    private static final int SIZE = 10;
+
+    private String[] array = new String[SIZE];
 
     private int head = 0;
+
     private int tail = 0;
 
-    public void enqueue(String str) {
-        array[head / 5] = str;
+    public void enqueue(String value) {
+        if ((head - tail) > SIZE) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
+        array[head % SIZE] = value;
         head++;
     }
 
     public String dequeue() {
-        if(tail>=head) {
+        if (head <= tail) {
             throw new ArrayIndexOutOfBoundsException();
         }
 
-        String value = array[tail % 5];
+        String value = array[tail % SIZE];
         tail++;
 
         return value;
@@ -26,7 +33,7 @@ public class Queue {
         Queue queue = new Queue();
 
         queue.enqueue("hi");
-        queue.enqueue("yes");
+        queue.enqueue("hihi");
 
         System.out.println(queue.dequeue());
     }
