@@ -86,8 +86,6 @@ public class FilePhoneBook implements PhoneBook {
             bw.write(name + "_" + phoneNumber + "_" + address + "\n");
             bw.close();
 
-            return 1;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,7 +96,6 @@ public class FilePhoneBook implements PhoneBook {
     @Override
     public boolean removeCard(int id) {
         List<NameCard> list = this.getList();
-
         file.delete();
 
         for(NameCard card : list) {
@@ -117,11 +114,9 @@ public class FilePhoneBook implements PhoneBook {
     @Override
     public void updateCard(int id, String name, String phoneNumber, String address) {
         List<NameCard> list = this.getList();
-
         file.delete();
 
         for (NameCard card: list) {
-
             if (card.id == id) {
                 card.setName(name);
                 card.setPhoneNumber(phoneNumber);
@@ -137,7 +132,7 @@ public class FilePhoneBook implements PhoneBook {
 
     @Override
     public int size() {
-        List<NameCard> list = getList();
+        List<NameCard> list = this.getList();
         return list.size();
     }
 }
