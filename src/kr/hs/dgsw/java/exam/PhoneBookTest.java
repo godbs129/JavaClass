@@ -10,10 +10,10 @@ public class PhoneBookTest {
 		NameCard nameCard = null;
 
 		// 네 개의 데이터를 추가하세요.
-//		phoneBook.addCard("정재봉", "010-3458-4250", "대구시 동구");
-//		phoneBook.addCard("유재석", "010-1234-5678", "서울시 강남구");
-//		phoneBook.addCard("손흥민", "010-0000-0000", "런던시 토튼햄구");
-//		phoneBook.addCard("윤여정", "010-9876-5432", "아카데미 시상식장");
+		phoneBook.addCard("정재봉", "010-3458-4250", "대구시 동구");
+		phoneBook.addCard("유재석", "010-1234-5678", "서울시 강남구");
+		phoneBook.addCard("손흥민", "010-0000-0000", "런던시 토튼햄구");
+		phoneBook.addCard("윤여정", "010-9876-5432", "아카데미 시상식장");
 
 
 		// 등록된 모든 연락처를 읽어와 상세 정보를 출력하세요.

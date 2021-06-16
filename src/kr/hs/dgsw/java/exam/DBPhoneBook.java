@@ -8,7 +8,8 @@ public class DBPhoneBook implements PhoneBook {
     private Connection getConnection() throws Exception {
         Class.forName("org.mariadb.jdbc.Driver");
 
-        return DriverManager.getConnection("jdbc:mariadb://211.53.209.159/dgsw_java", "dgsw_student", "1234");
+//        return DriverManager.getConnection("jdbc:mariadb://211.53.209.159/dgsw_java", "dgsw_student", "1234");
+        return DriverManager.getConnection("jdbc:mysql://localhost/java", "root", "jhy040129");
     }
 
     public NameCard makeCard(ResultSet rs) throws Exception {

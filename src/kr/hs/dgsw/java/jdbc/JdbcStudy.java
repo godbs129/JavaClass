@@ -1,6 +1,5 @@
 package kr.hs.dgsw.java.jdbc;
 
-import kr.hs.dgsw.java.api.Name;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,8 +12,8 @@ public class JdbcStudy {
     private Connection getConnection() throws Exception {
         // DB 연결
         Class.forName("org.mariadb.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost/java", "root", "jhy040129");
-//        return DriverManager.getConnection("jdbc:mariadb://211.53.209.159/dgsw_java", "dgsw_student", "1234");
+//        return DriverManager.getConnection("jdbc:mysql://localhost/java", "root", "jhy040129");
+        return DriverManager.getConnection("jdbc:mariadb://211.53.209.159/dgsw_java", "dgsw_student", "1234");
     }
 
     private NameCard makeNameCard(ResultSet rs) throws Exception {
