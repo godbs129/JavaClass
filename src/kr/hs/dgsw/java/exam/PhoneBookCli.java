@@ -51,7 +51,7 @@ public class PhoneBookCli {
                     }
                 case 4:
                     try {
-                        System.out.println("검색할 이름 : ");
+                        System.out.print("검색할 이름 : ");
                         String searchName = sc.next();
                         nameCard = phoneBook.getCard(searchName);
                         System.out.println(nameCard.toString());
