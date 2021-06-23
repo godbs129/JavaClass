@@ -27,7 +27,7 @@ public class PhoneBookTest {
 		nameCard = phoneBook.getCard(cards.get(1).getId());
 		System.out.println("getCard(int) --------------------");
 		System.out.println(nameCard.toString());
-//
+
 		// getName(String) 메소드를 이용해서 연락처 하나를 읽어와 상세 정보를 출력하세요.
 		nameCard = phoneBook.getCard(cards.get(2).getName());
 		System.out.println("getCard(String) --------------------");
