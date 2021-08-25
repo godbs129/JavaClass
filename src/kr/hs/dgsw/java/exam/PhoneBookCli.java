@@ -11,7 +11,7 @@ public class PhoneBookCli {
 
 
         while (true) {
-            System.out.println("\n0: 종료, 1: 정보 삽입, 2: 전체 조회, 3: id 검색, 4: 이름 검색 5: 삭제, 6: 수정, 7: 사이즈");
+            System.out.println("\n0: 종료, 1: 정보 삽입, 2: 전체 조회, 3: id 검색, 4: 이름 검색, 5: 삭제, 6: 수정, 7: 사이즈");
             System.out.print("> ");
             int num = sc.nextInt();
             List<NameCard> cards = phoneBook.getList();
