@@ -12,6 +12,7 @@ public class EchoServerWorker extends SocketWorkerAdapter {
     @Override
     public void listen(String message) throws IOException {
         this.os.write(message.getBytes());
+        System.out.println(message);
     }
 
 }

@@ -34,7 +34,7 @@ public class CommonServer {
         @Override
         public void run() {
             try {
-                SocketWorker socketWorker = new EchoServerWorker();
+                SocketWorker socketWorker = new BroadCastServerWorker();
                 socketWorker.setSocket(socket);
                 socketWorker.prepareTalking();
                 socketWorker.startTalking();
