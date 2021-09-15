@@ -4,28 +4,24 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
 
-public class FileChannelStudy {
+public class FileChannelLearn {
 
     public static void main(String[] args) {
         try {
-            //studyWrite();
-            //studyRead();
-            copy2();
+//            studyWrite();
+            studyRead();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void copy() throws Exception {
-        Path src = Paths.get("C:\\study\\nio", "크롱.jfif");
-        Path target = Paths.get("C:\\study\\nio", "크롱_copy.jfif");
+       Path src = Paths.get("/Users/haeyoon/Desktop/DGSW/Java/src/kr/hs/dgsw/java2/nio/test/nio/hello/hello.txt") ;
+       Path target = Paths.get("/Users/haeyoon/Desktop/DGSW/Java/src/kr/hs/dgsw/java2/nio/test/nio/hello/hello_copy.txt");
 
         FileChannel srcChannel =
                 FileChannel.open(src, StandardOpenOption.READ);
@@ -57,15 +53,11 @@ public class FileChannelStudy {
     }
 
     public static void copy2() throws Exception {
-        Path src = Paths.get("C:\\study\\nio", "크롱.jfif");
-        Path target = Paths.get("C:\\study\\nio", "크롱_copy2.jfif");
 
-        Files.copy(src, target,
-                StandardCopyOption.REPLACE_EXISTING);
     }
 
     public static void studyWrite() throws Exception {
-        Path path = Paths.get("C:\\study\\nio\\abcd.txt");
+        Path path = Paths.get("/Users/haeyoon/Desktop/DGSW/Java/src/kr/hs/dgsw/java2/nio/test/nio/hello/hello.txt");
         FileChannel channel =
                 FileChannel.open(path,
                         StandardOpenOption.CREATE,
@@ -81,7 +73,7 @@ public class FileChannelStudy {
     }
 
     public static void studyRead() throws Exception {
-        Path path = Paths.get("C:\\study\\nio\\abcd.txt");
+        Path path = Paths.get("/Users/haeyoon/Desktop/DGSW/Java/src/kr/hs/dgsw/java2/nio/test/nio/hello/hello.txt");
         FileChannel channel =
                 FileChannel.open(path,
                         StandardOpenOption.READ);
@@ -89,7 +81,6 @@ public class FileChannelStudy {
         ByteBuffer buffer = ByteBuffer.allocate(5);
         byte[] bytes = new byte[5];
         String data = "";
-        byte[] all = new byte[0];
 
         while (true) {
             int count = channel.read(buffer);
@@ -101,25 +92,13 @@ public class FileChannelStudy {
             buffer.flip();
             buffer.get(bytes, 0, count);
 
-            all = concatArray(all, Arrays.copyOf(bytes, count));
-
-            //data += new String(bytes, 0, count, "UTF-8");
+            data += new String(bytes, 0, count, "UTF-8");
 
             buffer.clear();
         }
 
-        data = new String(all, "UTF-8");
-
         channel.close();
         System.out.println("data : " + data);
-    }
-
-    public static byte[] concatArray(byte[] one, byte[] other) {
-        byte[] result = new byte[one.length + other.length];
-        System.arraycopy(one, 0, result, 0, one.length);
-        System.arraycopy(other, 0, result, one.length, other.length);
-
-        return result;
     }
 
     public static void printStatus(Buffer buffer, String note) {
@@ -133,7 +112,7 @@ public class FileChannelStudy {
 
     public static void studyWrite1() throws Exception {
 
-        Path path = Paths.get("C:\\study\\nio\\dgsw.txt");
+        Path path = Paths.get("/Users/haeyoon/Desktop/DGSW/Java/src/kr/hs/dgsw/java2/nio/test/nio/hellodgsw.txt");
         FileChannel channel =
                 FileChannel.open(path,
                         StandardOpenOption.CREATE,
@@ -153,7 +132,7 @@ public class FileChannelStudy {
 
     public static void studyRead1() throws Exception {
 
-        Path path = Paths.get("C:\\study\\nio\\dgsw.txt");
+        Path path = Paths.get("/Users/haeyoon/Desktop/DGSW/Java/src/kr/hs/dgsw/java2/nio/test/nio/hello/dgsw.txt");
         FileChannel channel =
                 FileChannel.open(path,
                         StandardOpenOption.READ);
