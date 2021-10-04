@@ -37,7 +37,7 @@ public class CommonClient extends SocketWorkerAdapter {
     public static void main(String[] args) {
         try {
             CommonClient client = new CommonClient();
-            client.connect("127.0.0.1", 8000);
+            client.connect("127.0.0.1", 1200);
             client.prepareTalking();
             client.startTalking();
         } catch (Exception e) {

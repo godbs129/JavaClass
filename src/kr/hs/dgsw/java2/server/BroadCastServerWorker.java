@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BroadCastServerWorker extends SocketWorkerAdapter{
+public class BroadCastServerWorker extends SocketWorkerAdapter {
 
     private static List<Socket> sockets = new ArrayList<>();
 
@@ -18,8 +18,9 @@ public class BroadCastServerWorker extends SocketWorkerAdapter{
 
     @Override
     public void listen(String message) throws IOException {
+        System.out.println(socket.getInetAddress().toString() + " " + message);
 
-        for(Socket socket: sockets) {
+        for (Socket socket : sockets) {
             OutputStream os = socket.getOutputStream();
             os.write(message.getBytes());
         }
