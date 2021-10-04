@@ -131,6 +131,7 @@ public class ServerWorker implements SocketWorker {
             user += users.get(i) + ",";
 
             if (i + 1 == size) {
+                user = user.substring(0, user.length() - 1);
                 String message = "UR" + String.format("%04d", user.getBytes().length) + user;
                 os.write(message.getBytes());
             }
@@ -151,7 +152,7 @@ public class ServerWorker implements SocketWorker {
         for (Socket so : sockets) {
             OutputStream os = so.getOutputStream();
             if (so != socket) {
-                String msg = name.split(" ")[0] + "님: " + payload;
+                String msg = name.split(" ")[0] + payload;
                 os.write(("GR" + String.format("%04d", msg.getBytes().length) + msg).getBytes());
             }
         }
@@ -167,7 +168,7 @@ public class ServerWorker implements SocketWorker {
         List<String> users = list.getUserList();
         String to = payload.substring(0, 4);
         String msg = payload.substring(4, payload.length());
-        String from = name + " " + msg;
+        String from = name.substring(0,4) + msg;
 
         int idx = forr(users, to);
         if (idx == -1) {

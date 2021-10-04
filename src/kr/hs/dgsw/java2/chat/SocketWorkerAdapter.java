@@ -95,14 +95,13 @@ public abstract class SocketWorkerAdapter implements SocketWorker {
 
     public void SR(String payload) {
         int findUser = findUser(payload.substring(0, 4));
-        System.out.println(payload.substring(0, 4));
 
         if (findUser == -1) {
             System.out.println("없는 유저입니다");
         }
 
-        String user = list.get(0);
-        System.out.println(user + "님의 귓속말: " + payload.split(" ")[2]);
+        String user = list.get(findUser);
+        System.out.println(user + "님의 귓속말: " + payload.substring(4, payload.length()));
     }
 
     public int findUser(String id) {
@@ -116,7 +115,7 @@ public abstract class SocketWorkerAdapter implements SocketWorker {
     }
 
     public void GR(String payload) {
-        System.out.println(payload);
+        System.out.println(payload.substring(0,4) + ":" + payload.substring(4, payload.length()));
     }
 
     public void JR(String payload) {
@@ -165,6 +164,7 @@ public abstract class SocketWorkerAdapter implements SocketWorker {
 
                     length = is.read(buffer);
                     String message = new String(buffer, 0, length);
+                    System.out.println(message);
                     String head = message.substring(0, 2);
 
                     if (message.length() > 6) {

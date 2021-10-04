@@ -45,7 +45,7 @@ public class Client2 extends SocketWorkerAdapter {
                     String message = to + msg;
                     this.os.write(("SM" + String.format("%04d", message.getBytes().length) + message).getBytes());
                 } else if ("/k".equals(line)) {
-                    System.out.print("추방할 사람의 아이디를 입력하세요");
+                    System.out.print("추방할 사람의 아이디를 입력하세요: ");
                     String id = sc.nextLine();
 
                     this.os.write(("WD" + String.format("%04d", id.getBytes().length) + id).getBytes());
