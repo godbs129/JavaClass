@@ -151,6 +151,10 @@ public abstract class SocketWorkerAdapter implements SocketWorker {
         if (os != null) {
             os.close();
         }
+
+        if (socket != null) {
+            socket.close();
+        }
     }
 
     private class Listener implements Runnable {
@@ -161,10 +165,11 @@ public abstract class SocketWorkerAdapter implements SocketWorker {
 
             try {
                 while (true) {
-
                     length = is.read(buffer);
+                    if (length == -1) {
+                        continue;
+                    }
                     String message = new String(buffer, 0, length);
-                    System.out.println(message);
                     String head = message.substring(0, 2);
 
                     if (message.length() > 6) {

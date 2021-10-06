@@ -5,10 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ServerWorker implements SocketWorker {
     protected Socket socket;
@@ -78,12 +76,13 @@ public class ServerWorker implements SocketWorker {
 
         int idx = forr(users, name.substring(0, 4));
         users.remove(idx);
+        sockets.remove(idx);
     }
 
     public void WD(String payload) throws IOException {
         List<String> users = list.getUserList();
         if (users.get(0).equals(name)) {
-            int idx = forr(users, payload);
+            int idx = forr(users, payload.substring(0, 4));
 
             Socket kickUser = sockets.get(idx);
             OutputStream kickOS = kickUser.getOutputStream();
@@ -91,10 +90,20 @@ public class ServerWorker implements SocketWorker {
             kickOS.write(("WR" + "0000").getBytes());
 
             users.remove(idx);
+            sockets.remove(idx);
 
             WA(payload);
         }
 
+    }
+
+    public int forr(List<String> users, String to) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).substring(0, 4).equals(to)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void WA(String payload) throws IOException {
@@ -107,7 +116,7 @@ public class ServerWorker implements SocketWorker {
     public void ID(String payload) throws IOException {
         List<String> users = list.getUserList();
         for (String idx : users) {
-            if (idx.equals(payload)) {
+            if (idx.substring(0, 4).equals(payload.substring(0, 4))) {
                 OutputStream os = socket.getOutputStream();
                 String message = "DR" + "0000";
                 os.write(message.getBytes());
@@ -137,14 +146,17 @@ public class ServerWorker implements SocketWorker {
             }
             i++;
         }
-        System.out.println("1" + user);
+        System.out.println(user);
     }
 
     public void JR(String name) throws IOException {
         for (Socket so : sockets) {
-            OutputStream os = so.getOutputStream();
-            String message = "JR" + String.format("%04d", name.getBytes().length) + name;
-            os.write(message.getBytes());
+            if (so != socket) {
+                OutputStream os = so.getOutputStream();
+                String message = "JR" + String.format("%04d", name.getBytes().length) + name;
+                os.write(message.getBytes());
+            }
+
         }
     }
 
@@ -152,7 +164,7 @@ public class ServerWorker implements SocketWorker {
         for (Socket so : sockets) {
             OutputStream os = so.getOutputStream();
             if (so != socket) {
-                String msg = name.split(" ")[0] + payload;
+                String msg = name.substring(0, 4) + payload;
                 os.write(("GR" + String.format("%04d", msg.getBytes().length) + msg).getBytes());
             }
         }
@@ -168,7 +180,7 @@ public class ServerWorker implements SocketWorker {
         List<String> users = list.getUserList();
         String to = payload.substring(0, 4);
         String msg = payload.substring(4, payload.length());
-        String from = name.substring(0,4) + msg;
+        String from = name.substring(0, 4) + msg;
 
         int idx = forr(users, to);
         if (idx == -1) {
@@ -181,24 +193,14 @@ public class ServerWorker implements SocketWorker {
         out.write(message.getBytes());
     }
 
-    public int forr(List<String> users, String to) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).split(" ")[0].equals(to)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-
     @Override
     public void disconnect() throws IOException {
 
         if (is != null) is.close();
         if (os != null) os.close();
         if (socket != null) {
-            socket.close();
             sockets.remove(socket);
+            socket.close();
         }
     }
 
@@ -212,6 +214,8 @@ public class ServerWorker implements SocketWorker {
 
             try {
                 while (true) {
+                    if (socket.isClosed()) break;
+
                     length = is.read(buffer);
                     String message = new String(buffer, 0, length);
                     String head = message.substring(0, 2);
@@ -219,7 +223,6 @@ public class ServerWorker implements SocketWorker {
                     String payload = message.substring(6);
                     listen(head, payload);
                 }
-            } catch (SocketException e) {
             } catch (Exception e) {
                 e.printStackTrace();
             }
